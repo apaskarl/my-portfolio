@@ -1,0 +1,24 @@
+<SkillContainer icon="skill-icons:html" label="HTML5" />
+<SkillContainer icon="skill-icons:css" label="CSS3" />
+<SkillContainer icon="skill-icons:javascript" label="JavaScript" />
+<SkillContainer icon="skill-icons:typescript" label="TypeScript" />
+<SkillContainer icon="skill-icons:react-dark" label="React" />
+<SkillContainer icon="skill-icons:vuejs-dark" label="Vue" />
+<SkillContainer icon="skill-icons:nextjs-dark" label="Next" />
+<SkillContainer icon="skill-icons:expressjs-dark" label="Express" />
+<SkillContainer icon="skill-icons:nodejs-dark" label="Node" />
+<SkillContainer icon="skill-icons:npm-dark" label="NPM" />
+<SkillContainer icon="skill-icons:php-dark" label="PHP" />
+<SkillContainer icon="skill-icons:laravel-dark" label="Laravel" />
+<SkillContainer icon="skill-icons:svelte" label="Svelte" />
+<SkillContainer
+icon="skill-icons:tailwindcss-dark"
+label="Tailwind"
+/>
+<SkillContainer icon="skill-icons:bootstrap" label="Bootstrap" />
+<SkillContainer icon="skill-icons:wordpress" label="Wordpress" />
+<SkillContainer icon="skill-icons:mysql-dark" label="MySQL" />
+<SkillContainer icon="skill-icons:mongodb" label="MongoDB" />
+<SkillContainer icon="skill-icons:github-dark" label="GitHub" />
+<SkillContainer icon="skill-icons:vite-dark" label="Vite" />
+<SkillContainer icon="skill-icons:vscode-dark" label="VS Code" />

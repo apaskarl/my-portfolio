@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  /* --primary: #55e6a5; */
+  --primary: #63edd1;
+  --primary-dark: #193b35;
+  --secondary: #141c27;
+  --white: #ffffff;
+  --light: #b5bdc5;
+  --dark: #09101a;
+  --black: #02050a;
+  --gray: #93989e;
+  --border: #363636;
+}
+
+:root {
+  --background: #ffffff;
+  --text: #02050a;
+
+  --gradient-start: #09101a;
+  --gradient-end: #02050a;
+}
+
+.dark {
+  --background: #09101a;
+  --text: #ffffff;
+
+  --gradient-start: #09101a;
+  --gradient-end: #02050a;
+}
+
+.red {
+  --background: #df2d20;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--dark);
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark);
+}

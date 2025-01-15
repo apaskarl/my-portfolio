@@ -1,0 +1,244 @@
+import React, { useState, useEffect } from "react";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import ActionButton from "../components/ActionButton";
+import HeaderLink from "../components/HeaderLink";
+import MenuButton from "../components/MenuButton";
+import SkillContainer from "../components/SkillContainer";
+import karlLogo from "../assets/images/k-logo-aqua.png";
+import karl from "../assets/images/karl.jpg";
+import karl2 from "../assets/images/karl2.jpg";
+import FooterIcon from "../components/FooterIcon";
+
+import { switchTheme } from "../utils/theme";
+
+export const Home = () => {
+  const theme = localStorage.getItem("theme");
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const [showMenu, setShowMenu] = useState(false);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowHeader(false); // Hide header on scroll down
+      } else {
+        setShowHeader(true); // Show header on scroll up
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const [text, setText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const roles = [
+    "Web Developer",
+    "Web Designer",
+    "Full-Stack Developer",
+    "Coffee Lover",
+  ];
+  useEffect(() => {
+    const typingSpeed = deleting ? 30 : 75;
+    const timeout = setTimeout(() => {
+      if (!deleting && charIndex < roles[index].length) {
+        setText(roles[index].slice(0, charIndex + 1));
+        setCharIndex((prev) => prev + 1);
+      } else if (deleting && charIndex > 0) {
+        setText(roles[index].slice(0, charIndex - 1));
+        setCharIndex((prev) => prev - 1);
+      } else if (!deleting && charIndex === roles[index].length) {
+        setTimeout(() => setDeleting(true), 1000);
+      } else if (deleting && charIndex === 0) {
+        setDeleting(false);
+        setIndex((prev) => (prev + 1) % roles.length);
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, deleting, index]);
+
+  return (
+    <div
+      className="min-h-screen bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)] duration-200"
+      // style={{
+      //   background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, var(--dark) 10%, var(--black))`,
+      // }}
+    >
+      <header
+        className={`fixed z-50 flex w-full items-center justify-between bg-[var(--secondary)] px-8 py-5 shadow-md transition-transform duration-200 md:px-20 ${
+          showHeader ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="font-spaceMono flex cursor-pointer items-center gap-x-2 text-2xl font-semibold tracking-tight text-[var(--white)]">
+          <img src={karlLogo} alt="karl-logo" className="h-8 w-8" />
+          karl.dev
+        </div>
+
+        <div className="hidden items-center gap-x-10 md:flex">
+          {/* <button
+            onClick={switchTheme}
+            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+          >
+            Switch Theme
+          </button> */}
+          <HeaderLink section="home" label="Home" />
+          <HeaderLink section="about" label="About" />
+          <HeaderLink section="projects" label="Projects" />
+          <HeaderLink section="contact" label="Contact" />
+        </div>
+      </header>
+
+      <main className="px-8 md:px-40">
+        {/* Home */}
+        <section
+          id="home"
+          className="flex min-h-screen items-center justify-between gap-x-24"
+        >
+          <div className="flex flex-1 flex-col gap-y-12">
+            <div>
+              <p className="font-spaceMono mb-3 flex items-center gap-x-4 text-lg text-[var(--light)]">
+                Hi, my name is Karl.{" "}
+                <Icon icon="twemoji:waving-hand" className="text-xl" />
+              </p>
+              <h3 className="text-5xl font-bold text-[var(--white)]">
+                I'm a <span className="text-[var(--primary)]">{text}</span>.
+              </h3>
+            </div>
+
+            <p className="leading-relaxed text-[var(--light)]">
+              Code first, coffee later... Just kidding, coffee always comes
+              first. Full Stack Developer who's equally at home building
+              databases as I am Googling error messages I don't understand.
+              Let's make the web a better place, one bug at a time!
+            </p>
+
+            <div className="flex flex-col gap-5 md:flex-row">
+              <ActionButton
+                type="primary"
+                label="Download CV"
+                icon="material-symbols:download-rounded"
+              />
+              <ActionButton label="Contact Me" icon="iconoir:message-text" />
+            </div>
+          </div>
+
+          <div className="relative hidden w-max items-center justify-center md:flex">
+            <img src={karl} className="z-20 h-80 w-80 rounded-lg" />
+            <span className="absolute left-5 top-5 h-80 w-80 rounded-lg border-4 border-[var(--primary)]" />
+          </div>
+        </section>
+
+        {/* About */}
+        <section
+          id="about"
+          className="flex flex-col gap-x-10 pb-20 md:flex-row"
+        >
+          <div className="relative hidden items-center justify-center rounded-lg md:flex">
+            <img src={karl2} className="z-20 h-72 w-72 shadow-sm" />
+            <span className="absolute right-5 top-5 hidden h-72 w-72 border border-[var(--primary)] bg-[var(--primary)] md:block" />
+          </div>
+
+          <div className="flex flex-1 flex-col gap-y-4">
+            <h2 className="font-spaceMono flex items-center gap-x-4 text-lg text-[var(--primary)]">
+              About Me <Icon icon="twemoji:smiling-face-with-sunglasses" />
+            </h2>
+            <h1 className="text-2xl font-bold tracking-wider text-[var(--white)]">
+              Who is Karl?
+            </h1>
+            <p className="leading-relaxed text-[var(--light)]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Laudantium quaerat quia atque harum quisquam nulla inventore rem
+              pariatur assumenda et! Nostrum, voluptas. Omnis beatae ipsum
+              laborum dolorem distinctio error laboriosam facere quis, minus,
+              officiis quas quod, ipsam dicta nostrum fugiat reiciendis sed
+              vero! Ratione blanditiis odit possimus neque eveniet doloremque!
+            </p>
+          </div>
+        </section>
+
+        {/* Skills & Tools */}
+        <section id="skills" className="flex flex-col gap-y-10 py-20">
+          <div>
+            <h2 className="font-spaceMono mb-4 flex items-center gap-x-4 text-lg text-[var(--primary)]">
+              Skills & Tools <Icon icon="twemoji:laptop" />
+            </h2>
+            <h1 className="text-2xl font-bold tracking-wider text-[var(--white)]">
+              My Toolbox & Things I Can Do
+            </h1>
+          </div>
+
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-8">
+            <SkillContainer icon="skill-icons:html" label="HTML5" />
+            <SkillContainer icon="skill-icons:css" label="CSS3" />
+            <SkillContainer icon="skill-icons:javascript" label="JavaScript" />
+            <SkillContainer icon={`skill-icons:react-${theme}`} label="React" />
+            <SkillContainer icon={`skill-icons:vuejs-${theme}`} label="Vue" />
+            <SkillContainer
+              icon={`skill-icons:nodejs-${theme}`}
+              label="Node.js"
+            />
+            <SkillContainer
+              icon={`skill-icons:expressjs-${theme}`}
+              label="Express"
+            />
+            <SkillContainer icon={`skill-icons:php-${theme}`} label="PHP" />
+            <SkillContainer
+              icon={`skill-icons:laravel-${theme}`}
+              label="Laravel"
+            />
+            <SkillContainer
+              icon={`skill-icons:tailwindcss-${theme}`}
+              label="Tailwind"
+            />
+            <SkillContainer icon="skill-icons:bootstrap" label="Bootstrap" />
+            <SkillContainer icon="skill-icons:wordpress" label="Wordpress" />
+            <SkillContainer icon={`skill-icons:mysql-${theme}`} label="MySQL" />
+            <SkillContainer
+              icon={`skill-icons:github-${theme}`}
+              label="GitHub"
+            />
+            <SkillContainer icon={`skill-icons:vite-${theme}`} label="Vite" />
+            <SkillContainer
+              icon={`skill-icons:vscode-${theme}`}
+              label="VS Code"
+            />
+          </div>
+        </section>
+      </main>
+
+      <footer className="px-8 md:px-32">
+        <div className="flex justify-between border-t border-[var(--dark)] py-10">
+          <p className="flex items-center gap-x-2 font-medium tracking-wide text-[var(--gray)]">
+            <Icon icon="ri:copyright-line" className="text-xl" />
+            Karl Apas 2024 | All rights reserved
+          </p>
+
+          <div className="flex gap-x-4">
+            <FooterIcon icon="lucide:github" />
+            <FooterIcon icon="lucide:facebook" />
+            <FooterIcon icon="lucide:instagram" />
+            <FooterIcon icon="lucide:twitter" />
+            <FooterIcon icon="lucide:linkedin" />
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
