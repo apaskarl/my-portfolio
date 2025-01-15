@@ -26,9 +26,9 @@ export const Home = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        setShowHeader(false); // Hide header on scroll down
+        setShowHeader(false);
       } else {
-        setShowHeader(true); // Show header on scroll up
+        setShowHeader(true);
       }
       setLastScrollY(window.scrollY);
     };
@@ -105,7 +105,7 @@ export const Home = () => {
           <div className="flex-1 space-y-10">
             <div>
               <p className="mb-3 flex items-center gap-x-4 font-spaceMono text-xl font-medium text-[var(--white)]">
-                Hi, my name is Karl.{" "}
+                Hi, my name is James Karl.{" "}
                 <Icon icon="twemoji:waving-hand" className="text-xl" />
               </p>
               <h3 className="text-5xl font-bold text-[var(--white)]">
